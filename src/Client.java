@@ -68,15 +68,18 @@ public class Client {
     public Client(){}
 
     //fonction pou valider le telephone
-//    public boolean ValidationTelephon (String telephone){
-//        String regex = "^06|07|05\\ \\d{2}\\ \\d{2}\\ \\d{2}"
-//    }
+    public boolean ValidationTelephon (String telephone){
+        String regex = "(^(06|05|07)( )\\d{2}( )\\d{2}( )\\d{2}( )\\d{2})$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(telephone);
+        return matcher.matches();
+    }
 
     //fonction pour valider la structure de l'email
     public boolean ValidationEmail(String email){
         String regex = "[\\w-]{1,20}@\\w{2,20}\\.\\w{2,3}$";
         Pattern pattern = Pattern.compile(regex);//pour compiler le rejex s'il est correct
-        Matcher matcher = pattern.matcher(email);//pour matcher la valeur de email entrer avac le rejex
+        Matcher matcher = pattern.matcher(email);//pour creer un macher (analyseur) pour analyser la valeur de email entrer avac le rejex
         return matcher.matches();//retun true si la vateur matcher le regex et false si nom
     }
 
@@ -103,8 +106,13 @@ public class Client {
 
             System.out.println("entrer l'adresse du client " + (i + 1) + ": ");
             String adresse = scanner.nextLine();
-            System.out.println("entrer le telephone du client " + (i + 1) + ": ");
-            String telephone = scanner.nextLine();
+            boolean valideTele;
+            do {
+                System.out.println("entrer le telephone du client " + (i + 1) + ": ");
+                String telephone = scanner.nextLine();
+                valideTele = ValidationTelephon(telephone);
+            }while (!valideTele);
+
             id++;
             Client c = new Client(id, nom, prenom, email, adresse, telephone);
             clients.add(c);
