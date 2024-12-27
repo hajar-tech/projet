@@ -8,7 +8,8 @@ public class Client {
 
     //declaration des variable
     static ArrayList<Client> clients = new ArrayList<>();
-    private static int id;
+    static int idIncriment = 1;
+    private int id;
     private String nom;
     private String prenom;
     private String email;
@@ -17,7 +18,7 @@ public class Client {
 
     //getter and setter
 
-    static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -58,12 +59,14 @@ public class Client {
     }
 
     //constructors
-    public Client(int id, String nom, String prenom, String email, String adresse, String telephone) {
+    public Client( String nom, String prenom, String email, String adresse, String telephone) {
+        this.id=idIncriment;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.adresse = adresse;
         this.telephone = telephone;
+        idIncriment++;
     }
     public Client(){}
 
@@ -94,9 +97,10 @@ public class Client {
             System.out.println("entrer le prénom du client " + (i + 1) + ": ");
             String prenom = scanner.nextLine();
             boolean valide;
+            String email;
             do {
                 System.out.println("entrer l'email [(a-z A-Z 0-9 -)@(a-z A-Z 0-9).(a-z A-Z 0-9) ]du client " + (i + 1) + ": ");
-                String email = scanner.nextLine();
+                email = scanner.nextLine();
                 valide = ValidationEmail(email);
                 if (!valide){
                     System.out.println("email invalide!!");
@@ -107,26 +111,65 @@ public class Client {
             System.out.println("entrer l'adresse du client " + (i + 1) + ": ");
             String adresse = scanner.nextLine();
             boolean valideTele;
+            String telephone;
             do {
                 System.out.println("entrer le telephone du client " + (i + 1) + ": ");
-                String telephone = scanner.nextLine();
+                telephone = scanner.nextLine();
                 valideTele = ValidationTelephon(telephone);
             }while (!valideTele);
-
-            id++;
-            Client c = new Client(id, nom, prenom, email, adresse, telephone);
+            Client c = new Client(nom, prenom, email, adresse, telephone);
             clients.add(c);
         }
     }
 
+    //to String
+
+    @Override
+    public String toString() {
+        return "{id: "+id+
+                "\n nom:'" + nom + '\'' +
+                "\n prenom:'" + prenom + '\'' +
+                "\n email:'" + email + '\'' +
+                "\n adresse:'" + adresse + '\'' +
+                "\n telephone:'" + telephone + '\'' +
+                '}';
+    }
 
 
-    public void Afficher(){
+    public void AfficherClient(){
         for (Client client: clients){
-            System.out.println("Id: "+Client.getId()+" |Nom: "+client.getNom()+" |Prenom: "
-             +client.getPrenom()+" |Email: "+client.getEmail()+" |Adresse: "+client.getAdresse()+
-               " |Telephone: "+client.getTelephone());
+            System.out.println(client);
+//            System.out.println("Id: "+Client.getId()+" |Nom: "+client.getNom()+" |Prenom: "
+//             +client.getPrenom()+" |Email: "+client.getEmail()+" |Adresse: "+client.getAdresse()+
+//               " |Telephone: "+client.getTelephone());
         }
+    }
+
+    //menu du client
+    public void MenuGestionClient (){
+        int choix;
+          do {
+              System.out.println("------- Menu gestion de client --------");
+              System.out.println("1: Ajouter un client");
+              System.out.println("2: Afficher un client");
+              System.out.println("3: break!");
+              System.out.println("entre votre choix: ");
+              choix=scanner.nextInt();
+              scanner.nextLine();
+              switch (choix){
+                  case 1:
+                      AjouterClient();
+                      break;
+                  case 2:
+                      AfficherClient();
+                      break;
+                  case 3:
+                      break;
+                  default:
+                      System.out.println("choisir en nombre existe dans le menu!!");
+              }
+
+          }while(choix!=3);
     }
 }
 

@@ -10,10 +10,11 @@ public class CompteCourant extends Compte {
       //objects
     Scanner scanner = new Scanner(System.in);
     Operation operation = new Operation();
+
       //constractos
-    public CompteCourant(){}
-    public CompteCourant(long numeroCompte, double soldeActuelle ,Client client){
-        super(numeroCompte,soldeActuelle,client);
+    public CompteCourant(){};
+    public CompteCourant(long numeroCompte, double soldeInitiale ,Client client){
+        super(numeroCompte,soldeInitiale,client);
 
     }
 
@@ -25,7 +26,7 @@ public class CompteCourant extends Compte {
         System.out.println("entrer id du client: ");
         int idClient = scanner.nextInt();
         scanner.nextLine();
-        Client client = RechercheClientId(idClient);
+        Client client = RechercheClientIdExiste(idClient);
          if(client != null){
              System.out.println("entrer le numéro du compte: ");
              long numeroCompte = scanner.nextLong();
@@ -33,8 +34,8 @@ public class CompteCourant extends Compte {
              System.out.println("entrer le solde initiale: ");
              double soldeInitiale = scanner.nextDouble();
              scanner.nextLine();
-             double soldeActuelle = operation.CalculeSoldeActuelle();
-             CompteCourant compteCourant = new CompteCourant(numeroCompte,soldeActuelle,client);
+            // double soldeActuelle = operation.CalculeSoldeActuelle(compteCourant);
+             CompteCourant compteCourant = new CompteCourant(numeroCompte,soldeInitiale,client);
              compteCourants.add(compteCourant);
          }else {
              System.out.println("client introuvable . veuillez ajouter un client!!");
@@ -42,4 +43,20 @@ public class CompteCourant extends Compte {
 
     }
 
-}
+    //implimentation du fonction Afficher
+    @Override
+    public void AfficherCompte(){
+        if(compteCourants.isEmpty()){
+            System.out.println("aucun compte courant à afficher!!");
+        }else {
+            for (CompteCourant compteCourant : compteCourants){
+                System.out.println(compteCourant);
+            }
+        }
+
+    }
+
+
+    }
+
+
