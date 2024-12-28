@@ -11,7 +11,7 @@ public class Operation {
     //déclaration des méthodes
 
     // Méthode pour calculer le solde actuel
-    public static double calculerSoldeActuel(Compte compte) {
+    public  double calculerSoldeActuel(Compte compte) {
         double soldeActuelle = compte.getSoldeInicile() + compte.getSoldeActuelle();
         return soldeActuelle;
     }

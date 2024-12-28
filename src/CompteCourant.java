@@ -35,7 +35,8 @@ public class CompteCourant extends Compte {
              double soldeInitiale = scanner.nextDouble();
              scanner.nextLine();
             CompteCourant compteCourant = new CompteCourant(numeroCompte, getSoldeActuelle(), client);
-             double soldeActuelle = Operation.calculerSoldeActuel(compteCourant);
+             double soldeActuelle = operation.calculerSoldeActuel(compteCourant);
+             compteCourant.setSoldeActuelle(soldeActuelle);
              compteCourants.add(compteCourant);
          }else {
              System.out.println("client introuvable . veuillez ajouter un client!!");

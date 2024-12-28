@@ -40,8 +40,9 @@ public class CompteEpargne extends Compte {
             double soldeInitiale = scanner.nextDouble();
             scanner.nextLine();
             // double soldeActuelle = operation.CalculeSoldeActuelle(compteCourant);
-            CompteEpargne compteEpargne = new CompteEpargne(numeroCompte,soldeInitiale,client);
-            double soldeActuelle = Operation.calculerSoldeActuel(compteEpargne);
+            CompteEpargne compteEpargne = new CompteEpargne(numeroCompte,getSoldeActuelle(),client);
+            double soldeActuelle = operation.calculerSoldeActuel(compteEpargne);
+            compteEpargne.setSoldeActuelle(soldeActuelle);
             compteEpargnes.add(compteEpargne);
         }else {
             System.out.println("client introuvable . veuillez ajouter un client!!");
