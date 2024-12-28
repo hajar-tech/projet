@@ -9,7 +9,7 @@ abstract public class Compte {
 
 
     //declaration des variable
-    //static int id;
+    protected static ArrayList<Compte> comptesBancaires = new ArrayList<>();
    private long numeroCompte;
     private Client proprietaire;
    private String type;
@@ -17,6 +17,15 @@ abstract public class Compte {
     private double soldeActuelle;
 
     //getter and setter
+
+
+    public static ArrayList<Compte> getComptesBancaires() {
+        return comptesBancaires;
+    }
+
+    public static void setComptesBancaires(ArrayList<Compte> comptesBancaires) {
+        Compte.comptesBancaires = comptesBancaires;
+    }
 
     public double getSoldeActuelle(){
         return soldeActuelle;
@@ -62,7 +71,8 @@ abstract public class Compte {
     public Compte (long numeroCompte,double soldeActuelle,Client client){
         this.numeroCompte=numeroCompte;
         this.soldeActuelle=soldeActuelle;
-        proprietaire=client;
+        this.proprietaire=client;
+        comptesBancaires.add(this);
 
     }
     public Compte (){}
@@ -70,29 +80,41 @@ abstract public class Compte {
     //definition de la methode CreerCompte
     abstract public void CreerCompte();
 
-    //definition de la methode  AfficherCompte
-    abstract public void AfficherCompte();
+    // la methode  AfficherCompte
+     public static void AfficherCompte(){
+
+            for (Compte compte : Compte.getComptesBancaires()) {
+                System.out.println(compte.toString());
+            }
+    }
 
      //implimentation to string()
-
-
     @Override
     public String toString() {
         return "Compte{" +
-                "numeroCompte=" + numeroCompte +
-                ", proprietaire=" + proprietaire +
-                ", soldeInicile=" + soldeInicile +
+                "\n numeroCompte=" + numeroCompte +
+                "\n proprietaire=" + proprietaire +
+                "\n solde Actuelle=" + soldeActuelle +
                 '}';
     }
 
     //fonction recherche client
     public Client RechercheClientIdExiste(int idClient){
         for (Client client : Client.clients){
-            if (idClient==Client.getId()){
+            if (idClient==client.getId()){
                 return client;
             }
         }
         return null;
+    }
+
+//fonction pour rechercher un comte à partir de son numéro
+    public static Compte RechercheCompteNumero(long numeroCompte){
+         for (Compte compte : comptesBancaires){
+             if (numeroCompte == compte.getNumeroCompte()){
+                 return compte;
+             }
+         }return null;
     }
 
 
@@ -125,6 +147,7 @@ abstract public class Compte {
                                 compteCourant.CreerCompte();
                                 break;
                             case 2:
+                                compteEpargne.CreerCompte();
                                 break;
                             case 3:
                                 break;
@@ -132,7 +155,34 @@ abstract public class Compte {
                     }while (choixCompte!= 3);
                     break;
                 case 2:
+                    int choixAffichage;
+                    do {
+                        System.out.println("1: pour l'affichge des compte courant ");
+                        System.out.println("2: pour l'affichage des compte épargne ");
+                        System.out.println("3: pour l'affichage des tout les compte");
+                        System.out.println("4: pour quitter!!");
+                        System.out.println("entrer votre choix: ");
+                        choixAffichage=scanner.nextInt();
+                        scanner.nextLine();
+                        switch (choixAffichage){
+                            case 1:
+                                CompteCourant.AfficherCompteCourant();
+                                break;
+                            case 2:
+                                CompteEpargne.AfficherCompteEpargne();
+                                break;
+                            case 3:
+                                AfficherCompte();
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }while (choixAffichage!= 4);
+
+
+
                     System.out.println("afficher un compte");
+                    Compte.AfficherCompte();
                     break;
                 case 3:
                     break;

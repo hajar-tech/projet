@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class CompteEpargne extends Compte {
     //declaration des variable
    private double tauxInteret;
+   static ArrayList<CompteEpargne>compteEpargnes=new ArrayList<>();
 
    //getter and setter
     public double getTauxInteret() {
@@ -16,6 +17,9 @@ public class CompteEpargne extends Compte {
 
     //constractors
     public CompteEpargne (){}
+    public CompteEpargne(long numeroCompte, double soldeInitiale, Client client){
+        super(numeroCompte,soldeInitiale,client);
+    }
 
     //objects
     Operation operation=new Operation();
@@ -24,12 +28,24 @@ public class CompteEpargne extends Compte {
     //implementation des methodes
     @Override
     public void CreerCompte() {
-        System.out.println("entrer le numéro du compte: ");
-        long numeroCompte = scanner.nextLong();
+        System.out.println("entrer id du client: ");
+        int idClient = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("entrer le solde initiale: ");
-        double soldeInitiale = scanner.nextDouble();
-        scanner.nextLine();
+        Client client = RechercheClientIdExiste(idClient);
+        if(client != null){
+            System.out.println("entrer le numéro du compte: ");
+            long numeroCompte = scanner.nextLong();
+            scanner.nextLine();
+            System.out.println("entrer le solde initiale: ");
+            double soldeInitiale = scanner.nextDouble();
+            scanner.nextLine();
+            // double soldeActuelle = operation.CalculeSoldeActuelle(compteCourant);
+            CompteEpargne compteEpargne = new CompteEpargne(numeroCompte,soldeInitiale,client);
+            double soldeActuelle = Operation.calculerSoldeActuel(compteEpargne);
+            compteEpargnes.add(compteEpargne);
+        }else {
+            System.out.println("client introuvable . veuillez ajouter un client!!");
+        }
 //        System.out.println("un Taux d'interet de 3% par année");
 //        System.out.println("combien d'annéés de blockage: ");
 //        int nombreAnnee=scanner.nextInt();
@@ -39,8 +55,15 @@ public class CompteEpargne extends Compte {
 //        double soldeActuelle = operation.CalculeSoldeActuelle(compteEpargne)+operation.CalculeTauxInteret();
     }
 
-    @Override
-    public void AfficherCompte() {
+
+    public static void AfficherCompteEpargne() {
+        if(compteEpargnes.isEmpty()){
+            System.out.println("aucun compte courant à afficher!!");
+        }else {
+            for (CompteEpargne compteEpargne : compteEpargnes){
+                System.out.println(compteEpargne);
+            }
+        }
 
     }
 

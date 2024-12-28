@@ -126,7 +126,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "{id: "+id+
+        return "{\n id: "+id+
                 "\n nom:'" + nom + '\'' +
                 "\n prenom:'" + prenom + '\'' +
                 "\n email:'" + email + '\'' +

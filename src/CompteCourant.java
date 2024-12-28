@@ -13,8 +13,8 @@ public class CompteCourant extends Compte {
 
       //constractos
     public CompteCourant(){};
-    public CompteCourant(long numeroCompte, double soldeInitiale ,Client client){
-        super(numeroCompte,soldeInitiale,client);
+    public CompteCourant(long numeroCompte, double soldeActuelle ,Client client){
+        super(numeroCompte,soldeActuelle,client);
 
     }
 
@@ -27,15 +27,15 @@ public class CompteCourant extends Compte {
         int idClient = scanner.nextInt();
         scanner.nextLine();
         Client client = RechercheClientIdExiste(idClient);
-         if(client != null){
+         if(client != null) {
              System.out.println("entrer le numéro du compte: ");
              long numeroCompte = scanner.nextLong();
              scanner.nextLine();
              System.out.println("entrer le solde initiale: ");
              double soldeInitiale = scanner.nextDouble();
              scanner.nextLine();
-            // double soldeActuelle = operation.CalculeSoldeActuelle(compteCourant);
-             CompteCourant compteCourant = new CompteCourant(numeroCompte,soldeInitiale,client);
+            CompteCourant compteCourant = new CompteCourant(numeroCompte, getSoldeActuelle(), client);
+             double soldeActuelle = Operation.calculerSoldeActuel(compteCourant);
              compteCourants.add(compteCourant);
          }else {
              System.out.println("client introuvable . veuillez ajouter un client!!");
@@ -44,8 +44,9 @@ public class CompteCourant extends Compte {
     }
 
     //implimentation du fonction Afficher
-    @Override
-    public void AfficherCompte(){
+
+
+    public static void AfficherCompteCourant(){
         if(compteCourants.isEmpty()){
             System.out.println("aucun compte courant à afficher!!");
         }else {

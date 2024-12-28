@@ -10,6 +10,7 @@ public class Main {
          Client client = new Client();
          CompteCourant compteCourant=new CompteCourant();
          CompteEpargne compteEpargne=new CompteEpargne();
+         Operation operation= new Operation();
 
 
 
@@ -32,6 +33,7 @@ public class Main {
                     compteCourant.MenuGestionComptes();
                     break;
                 case 3:
+                    operation.GectionMenuOperation();
                     break;
                 case 4:
                     break;
