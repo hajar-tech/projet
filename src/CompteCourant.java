@@ -13,8 +13,8 @@ public class CompteCourant extends Compte {
 
       //constractos
     public CompteCourant(){};
-    public CompteCourant(long numeroCompte, double soldeActuelle ,Client client){
-        super(numeroCompte,soldeActuelle,client);
+    public CompteCourant(long numeroCompte, double getSoldeActuelle ,Client client){
+        super(numeroCompte,getSoldeActuelle,client);
 
     }
 
@@ -34,7 +34,7 @@ public class CompteCourant extends Compte {
              System.out.println("entrer le solde initiale: ");
              double soldeInitiale = scanner.nextDouble();
              scanner.nextLine();
-            CompteCourant compteCourant = new CompteCourant(numeroCompte, getSoldeActuelle(), client);
+            CompteCourant compteCourant = new CompteCourant(numeroCompte, soldeInitiale, client);
              double soldeActuelle = operation.calculerSoldeActuel(compteCourant);
              compteCourant.setSoldeActuelle(soldeActuelle);
              compteCourants.add(compteCourant);

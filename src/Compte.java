@@ -14,7 +14,7 @@ abstract public class Compte {
     private Client proprietaire;
    private String type;
     private double soldeInicile;
-    private double soldeActuelle;
+    private static double soldeActuelle;
 
     //getter and setter
 
@@ -68,9 +68,10 @@ abstract public class Compte {
     }
 
     //constractors
-    public Compte (long numeroCompte,double soldeActuelle,Client client){
+    public Compte (long numeroCompte,double soldeInicile,Client client){
         this.numeroCompte=numeroCompte;
-        this.soldeActuelle=soldeActuelle;
+        this.soldeInicile=soldeInicile;
+        this.soldeActuelle=getSoldeActuelle();
         this.proprietaire=client;
         comptesBancaires.add(this);
 
@@ -94,7 +95,7 @@ abstract public class Compte {
         return "Compte{" +
                 "\n numeroCompte=" + numeroCompte +
                 "\n proprietaire=" + proprietaire +
-                "\n solde Actuelle=" + soldeActuelle +
+                "\n solde Actuelle=" + getSoldeActuelle() +
                 '}';
     }
 

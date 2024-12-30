@@ -39,8 +39,7 @@ public class CompteEpargne extends Compte {
             System.out.println("entrer le solde initiale: ");
             double soldeInitiale = scanner.nextDouble();
             scanner.nextLine();
-            // double soldeActuelle = operation.CalculeSoldeActuelle(compteCourant);
-            CompteEpargne compteEpargne = new CompteEpargne(numeroCompte,getSoldeActuelle(),client);
+            CompteEpargne compteEpargne = new CompteEpargne(numeroCompte,soldeInitiale,client);
             double soldeActuelle = operation.calculerSoldeActuel(compteEpargne);
             compteEpargne.setSoldeActuelle(soldeActuelle);
             compteEpargnes.add(compteEpargne);
